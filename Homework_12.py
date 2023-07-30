@@ -52,25 +52,26 @@ def add_contact(name: str, *args: str) -> str:
     if name in phones:
         return "Contact exists! You can only change this contact"
 
-    possible_birthday = args[-1]
     birthday = None
-    if len(possible_birthday.split("-")) == 3 and len(possible_birthday) == 10:
-        birthday = possible_birthday
-        args = args[:-1]
+    if len(args) > 0:
+        possible_birthday = args[-1]
+        if len(possible_birthday.split("-")) == 3 and len(possible_birthday) == 10:
+            birthday = possible_birthday
+            args = args[:-1]
 
-    lst_phones: list[address_book_12.Phone] = []
+    lst_phones: list[address_book_11.Phone] = []
     for phone_ in args:
         new_phone = sanitize_number(phone_)
         if not new_phone:
             return f"Invalid mobile phone: {phone_}. Required length 10, 12 (only digits) or 13 ('+' on begining)"
-        lst_phones.append(address_book_12.Phone(new_phone))
+        lst_phones.append(address_book_11.Phone(new_phone))
 
     if birthday is None:
-        record = address_book_12.Record(
-            address_book_12.Name(name), *lst_phones)
+        record = address_book_11.Record(
+            address_book_11.Name(name), *lst_phones)
     else:
-        record = address_book_12.Record(address_book_12.Name(
-            name), *lst_phones, birthday=address_book_12.Birthday(birthday))
+        record = address_book_11.Record(address_book_11.Name(
+            name), *lst_phones, birthday=address_book_11.Birthday(birthday))
     phones.add_record(record)
     return f"Succesfully added new contact. {record}"
 
@@ -84,25 +85,26 @@ def change(name: str, *args: str) -> str:
     if not (name in phones):
         return "Create contact to change it!"
 
-    possible_birthday = args[-1]
     birthday = None
-    if len(possible_birthday.split("-")) == 3 and len(possible_birthday) == 10:
-        birthday = possible_birthday
-        args = args[:-1]
+    if len(args) > 0:
+        possible_birthday = args[-1]
+        if len(possible_birthday.split("-")) == 3 and len(possible_birthday) == 10:
+            birthday = possible_birthday
+            args = args[:-1]
 
-    lst_phones: list[address_book_12.Phone] = []
+    lst_phones: list[address_book_11.Phone] = []
     for phone_ in args:
         new_phone = sanitize_number(phone_)
         if not new_phone:
             return f"Invalid mobile phone: {phone_}. Required length 10, 12 (only digits) or 13 ('+' on begining)"
-        lst_phones.append(address_book_12.Phone(new_phone))
+        lst_phones.append(address_book_11.Phone(new_phone))
 
     if birthday is None:
-        record = address_book_12.Record(
-            address_book_12.Name(name), *lst_phones)
+        record = address_book_11.Record(
+            address_book_11.Name(name), *lst_phones)
     else:
-        record = address_book_12.Record(address_book_12.Name(
-            name), *lst_phones, birthday=address_book_12.Birthday(birthday))
+        record = address_book_11.Record(address_book_11.Name(
+            name), *lst_phones, birthday=address_book_11.Birthday(birthday))
     phones.add_record(record)
     return f"Succesfully changed contact. {record}"
 
